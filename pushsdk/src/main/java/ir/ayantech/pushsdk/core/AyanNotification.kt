@@ -81,6 +81,10 @@ object AyanNotification {
             )
     }
 
+    fun reportDeviceMobileNumber(mobileNumber: String) {
+        PushNotificationNetworking.reportDeviceMobileNumber(mobileNumber)
+    }
+
     fun getNotificationList(
         itemCount: Long,
         notificationObjectsCallBack: NotificationObjectsCallBack

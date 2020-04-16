@@ -1,0 +1,36 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compileOnly 'androidx.appcompat:appcompat:1.1.0'
+    compileOnly 'androidx.core:core-ktx:1.2.0'
+    compileOnly 'com.coolerfall:android-http-download-manager:1.6.1'
+    compileOnly 'com.google.code.gson:gson:2.8.6'
+    compileOnly 'com.squareup.retrofit2:converter-gson:2.6.0'
+    compileOnly 'com.squareup.okhttp3:okhttp:3.12.1'
+    compileOnly 'com.github.shadowalker77:networking:0.6.0'
+    compileOnly 'com.google.firebase:firebase-messaging:20.1.5'
+    compileOnly 'com.google.firebase:firebase-core:17.3.0'
+}

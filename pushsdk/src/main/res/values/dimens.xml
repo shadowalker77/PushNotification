@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_padding">16dp</dimen>
+    <dimen name="text_x_large">16sp</dimen>
+    <dimen name="text_normal">14sp</dimen>
+
+    <dimen name="custom_notification_main_padding">@dimen/main_padding</dimen>
+    <dimen name="custom_notification_title_size">@dimen/text_x_large</dimen>
+    <dimen name="custom_notification_message_size">@dimen/text_normal</dimen>
+    <dimen name="custom_notification_big_icon_size">56dp</dimen>
+</resources>

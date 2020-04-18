@@ -15,7 +15,10 @@ import ir.ayantech.pushsdk.storage.PushNotificationUser
 
 typealias SimpleCallBack = () -> Unit
 
+typealias BooleanCallBack = (Boolean) -> Unit
+
 typealias NotificationObjectsCallBack = (
+    success: Boolean,
     totalCount: Long,
     unSeenCount: Long,
     notifications: List<NotificationObject<*>>,
@@ -70,19 +73,22 @@ object PushNotificationNetworking {
     }
 
     fun reportDeviceMobileNumber(mobileNumber: String) {
-        simpleCall<Void>(
+        ayanApi.ayanCall<Void>(
+            AyanCallStatus {
+                success {
+                    PreferencesManager.saveToSharedPreferences(Constants.SERVER_NOTIFIED_MOBILE, true)
+                    Log.d(
+                        "AyanPush",
+                        "User mobile number successfully reported to the server."
+                    )
+                }
+            },
             EndPoint.ReportDeviceMobileNumber,
             ReportDeviceMobileNumberInput(
                 mobileNumber,
                 PushNotificationUser.getPushNotificationToken()
             )
-        ) {
-            PreferencesManager.saveToSharedPreferences(Constants.SERVER_NOTIFIED_MOBILE, true)
-            Log.d(
-                "AyanPush",
-                "User mobile number successfully reported to the server."
-            )
-        }
+        )
     }
 
     fun reportDeviceReceivedNotificationStatus(
@@ -90,75 +96,91 @@ object PushNotificationNetworking {
         status: String,
         extraInfo: Any? = null
     ) {
-        simpleCall<Void>(
+        ayanApi.ayanCall<Void>(
+            AyanCallStatus {
+                success {
+                    Log.d(
+                        "AyanPush",
+                        "Message status with $status status successfully reported to the server."
+                    )
+                }
+            },
             EndPoint.ReportDeviceReceivedNotificationStatus,
             ReportDeviceReceivedNotificationStatusInput(extraInfo, messageId, status)
-        ) {
-            Log.d(
-                "AyanPush",
-                "Message status with $status status successfully reported to the server."
-            )
-        }
+        )
     }
 
     fun getNotificationsList(
         itemCount: Long,
         offset: Long = 0L,
-        callback: (GetNotificationsListOutput) -> Unit
+        callback: (success: Boolean, output: GetNotificationsListOutput?) -> Unit
     ) {
-        simpleCall<GetNotificationsListOutput>(
+        ayanApi.ayanCall<GetNotificationsListOutput>(
+            AyanCallStatus {
+                success {
+                    it.response?.Parameters?.let { callback(true, it) }
+                }
+                failure {
+                    callback(false, null)
+                }
+            },
             EndPoint.GetNotificationsList,
             GetNotificationsListInput(
                 itemCount,
                 offset,
                 PushNotificationUser.getPushNotificationToken()
             )
-        ) {
-            it?.let { callback(it) }
-        }
+        )
     }
 
-    fun getNotificationDetail(notificationId: Long, callback: (GetNotificationDetailOutput) -> Unit) {
-        simpleCall<GetNotificationDetailOutput>(
-            EndPoint.GetNotificationDetail,
-            GetNotificationDetailInput(notificationId, PushNotificationUser.getPushNotificationToken())
-        ) {
-            it?.let { callback(it) }
-        }
-    }
-
-    fun removeNotification(notificationId: Long, success: SimpleCallBack) {
-        simpleCall<Void>(
-            EndPoint.RemoveNotification,
-            RemoveNotificationInput(notificationId, PushNotificationUser.getPushNotificationToken())
-        ) {
-            success()
-        }
-    }
-
-    fun removeAllNotifications(success: SimpleCallBack) {
-        simpleCall<Void>(
-            EndPoint.RemoveAllNotifications,
-            RemoveAllNotificationsInput(PushNotificationUser.getPushNotificationToken())
-        ) {
-            success()
-        }
-    }
-
-    private inline fun <reified GenericOutput> simpleCall(
-        endPoint: String,
-        input: Any? = null,
-        crossinline onSuccess: (GenericOutput?) -> Unit
+    fun getNotificationDetail(
+        notificationId: Long,
+        callback: (success: Boolean, output: GetNotificationDetailOutput?) -> Unit
     ) {
-        ayanApi.ayanCall<GenericOutput>(
+        ayanApi.ayanCall<GetNotificationDetailOutput>(
             AyanCallStatus {
                 success {
-                    onSuccess(it.response?.Parameters)
+                    it.response?.Parameters?.let { callback(true, it) }
+                }
+                failure {
+                    callback(false, null)
                 }
             },
-            endPoint,
-            input,
-            hasIdentity = false
+            EndPoint.GetNotificationDetail,
+            GetNotificationDetailInput(
+                notificationId,
+                PushNotificationUser.getPushNotificationToken()
+            )
+        )
+    }
+
+    fun removeNotification(notificationId: Long, callback: BooleanCallBack) {
+        ayanApi.ayanCall<Void>(
+            AyanCallStatus {
+                success {
+                    callback(true)
+                }
+                failure {
+                    callback(false)
+                }
+            },
+            EndPoint.RemoveNotification,
+            RemoveNotificationInput(notificationId, PushNotificationUser.getPushNotificationToken())
+        )
+    }
+
+    fun removeAllNotifications(callback: BooleanCallBack) {
+        ayanApi.ayanCall<Void>(
+            AyanCallStatus {
+                success {
+                    callback(true)
+                }
+                failure {
+                    callback(false)
+                }
+            },
+            EndPoint.RemoveAllNotifications,
+            RemoveAllNotificationsInput(PushNotificationUser.getPushNotificationToken())
         )
     }
 }

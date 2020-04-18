@@ -7,6 +7,7 @@ import ir.ayantech.pushsdk.helper.NotificationUtils
 import ir.ayantech.pushsdk.model.Message
 import ir.ayantech.pushsdk.model.MessageDeserializer
 import ir.ayantech.pushsdk.model.api.NotificationObject
+import ir.ayantech.pushsdk.networking.BooleanCallBack
 import ir.ayantech.pushsdk.networking.NotificationObjectsCallBack
 import ir.ayantech.pushsdk.networking.PushNotificationNetworking
 import ir.ayantech.pushsdk.networking.SimpleCallBack
@@ -92,7 +93,7 @@ object AyanNotification {
         getNotificationList(itemCount, 0, notificationObjectsCallBack)
     }
 
-    fun removeAllNotifications(success: SimpleCallBack) {
+    fun removeAllNotifications(success: BooleanCallBack) {
         PushNotificationNetworking.removeAllNotifications(success)
     }
 
@@ -101,29 +102,36 @@ object AyanNotification {
         offset: Long,
         notificationObjectsCallBack: NotificationObjectsCallBack
     ) {
-        PushNotificationNetworking.getNotificationsList(itemCount, offset) {
+        PushNotificationNetworking.getNotificationsList(itemCount, offset) { success, output ->
             var nextPageClosure: SimpleCallBack? = null
-            if (it.HasMore) {
-                nextPageClosure = {
-                    getNotificationList(itemCount, it.NextOffset, notificationObjectsCallBack)
+            output?.let {
+                if (!success) {
+                    notificationObjectsCallBack(success, 0L, 0L, listOf(), null)
+                    return@let
                 }
+                if (it.HasMore) {
+                    nextPageClosure = {
+                        getNotificationList(itemCount, it.NextOffset, notificationObjectsCallBack)
+                    }
+                }
+                notificationObjectsCallBack(
+                    success,
+                    it.TotalCount,
+                    it.UnSeenCount,
+                    it.Notifications.map {
+                        NotificationObject(
+                            it.NotificationID,
+                            MessageDeserializer.stringToMessage(
+                                it.Notification.Data.message,
+                                it.NotificationID.toString()
+                            ),
+                            it.Seen,
+                            it.SendDateTime
+                        )
+                    },
+                    nextPageClosure
+                )
             }
-            notificationObjectsCallBack(
-                it.TotalCount,
-                it.UnSeenCount,
-                it.Notifications.map {
-                    NotificationObject(
-                        it.NotificationID,
-                        MessageDeserializer.stringToMessage(
-                            it.Notification.Data.message,
-                            it.NotificationID.toString()
-                        ),
-                        it.Seen,
-                        it.SendDateTime
-                    )
-                },
-                nextPageClosure
-            )
         }
     }
 }

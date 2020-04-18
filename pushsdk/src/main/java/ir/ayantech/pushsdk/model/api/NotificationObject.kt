@@ -6,8 +6,8 @@ import ir.ayantech.pushsdk.helper.ImageHelper
 import ir.ayantech.pushsdk.model.Message
 import ir.ayantech.pushsdk.model.MessageDeserializer
 import ir.ayantech.pushsdk.model.action.PushNotificationAction
+import ir.ayantech.pushsdk.networking.BooleanCallBack
 import ir.ayantech.pushsdk.networking.PushNotificationNetworking
-import ir.ayantech.pushsdk.networking.SimpleCallBack
 
 class NotificationObject<T : PushNotificationAction>(
     private val notificationId: Long?,
@@ -33,24 +33,31 @@ class NotificationObject<T : PushNotificationAction>(
         message?.action?.doAction()
     }
 
-    fun getNotificationDetail(callback: (NotificationObject<*>) -> Unit) {
+    fun getNotificationDetail(callback: (success: Boolean, notificationObject: NotificationObject<*>?) -> Unit) {
         if (notificationId == null) return
-        PushNotificationNetworking.getNotificationDetail(notificationId) {
-            callback(
-                NotificationObject(
-                    it.NotificationID,
-                    MessageDeserializer.stringToMessage(
-                        it.Notification.Data.message,
-                        ""
-                    ),
-                    it.Seen,
-                    it.SendDateTime
+        PushNotificationNetworking.getNotificationDetail(notificationId) { success, output ->
+            if (!success) {
+                callback(success, null)
+                return@getNotificationDetail
+            }
+            output?.let {
+                callback(
+                    success,
+                    NotificationObject(
+                        it.NotificationID,
+                        MessageDeserializer.stringToMessage(
+                            it.Notification.Data.message,
+                            ""
+                        ),
+                        it.Seen,
+                        it.SendDateTime
+                    )
                 )
-            )
+            }
         }
     }
 
-    fun remove(success: SimpleCallBack) {
+    fun remove(success: BooleanCallBack) {
         if (notificationId == null) return
         PushNotificationNetworking.removeNotification(notificationId, success)
     }

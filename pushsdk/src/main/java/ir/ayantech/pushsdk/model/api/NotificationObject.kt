@@ -1,5 +1,6 @@
 package ir.ayantech.pushsdk.model.api
 
+import android.content.Context
 import android.graphics.Bitmap
 import ir.ayantech.pushsdk.helper.ImageHelper
 import ir.ayantech.pushsdk.model.Message
@@ -27,7 +28,8 @@ class NotificationObject<T : PushNotificationAction>(
         )
     }
 
-    fun performAction() {
+    fun performAction(context: Context) {
+        message?.action?.context = context
         message?.action?.doAction()
     }
 

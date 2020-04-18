@@ -10,8 +10,8 @@ public class PushNotificationUser {
     private static final String PUSH_NOTIFICATION_EXTRA_INFO_CLASS = "pushNotificationExtraInfoClass";
 
     public static String getPushNotificationToken() {
-//        return PreferencesManager.readStringFromSharedPreferences(PUSH_NOTIFICATION_TOKEN);
-        return "cz5je04gj3s:APA91bHCGYdZ2rnr8YZcRq-DPWdoiFThEQwc84Qu-gMSvmoFDF3gEMcRY1N-L-O9Ot41zCKXfdJ3kv3nTB3QfKGyHvb28g5y6txhM4AYSlcpIFfm80wi-3iDy8DsME8cAylj1pUAQmPa";
+        return PreferencesManager.readStringFromSharedPreferences(PUSH_NOTIFICATION_TOKEN);
+//        return "cz5je04gj3s:APA91bHCGYdZ2rnr8YZcRq-DPWdoiFThEQwc84Qu-gMSvmoFDF3gEMcRY1N-L-O9Ot41zCKXfdJ3kv3nTB3QfKGyHvb28g5y6txhM4AYSlcpIFfm80wi-3iDy8DsME8cAylj1pUAQmPa";
     }
 
     public static String getUserMobile() {

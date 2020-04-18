@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="applicationName">ghabzino</string>
+    <string name="applicationName">vashookfieldselection</string>
     <string name="applicationType">android</string>
     <drawable name="pushIcon">@drawable/ic_notif</drawable>
 </resources>

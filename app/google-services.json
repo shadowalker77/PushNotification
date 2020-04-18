@@ -1,39 +1,296 @@
 {
   "project_info": {
-    "project_number": "418500099884",
-    "firebase_url": "https://ghabzino.firebaseio.com",
-    "project_id": "ghabzino",
-    "storage_bucket": "ghabzino.appspot.com"
+    "project_number": "120472552359",
+    "firebase_url": "https://testapplicationgcm.firebaseio.com",
+    "project_id": "testapplicationgcm",
+    "storage_bucket": "testapplicationgcm.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:418500099884:android:9cac67c26af0813b",
+        "mobilesdk_app_id": "1:120472552359:android:22e148c8aecf12ed",
         "android_client_info": {
-          "package_name": "ir.ayantech.ghabzino"
+          "package_name": "ir.ayantech.discountinquiry"
         }
       },
       "oauth_client": [
         {
-          "client_id": "418500099884-thsbm1222m1537lhmk3a8t7fp9t90egu.apps.googleusercontent.com",
+          "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBcGvssd94IXyXZZmIQWmzqs1fEwD3xIYA"
+          "current_key": "AIzaSyCJdUuN-GVMmgb9ctEbPEyAx4Cqg4nnM_s"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120472552359-998spg3lsnp5qgisnb3s77r55fd4c4nk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ir.ayantech.discountinquiry"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120472552359:android:9dfcb783bc31aa83",
+        "android_client_info": {
+          "package_name": "ir.ayantech.finesdetail"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJdUuN-GVMmgb9ctEbPEyAx4Cqg4nnM_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120472552359-998spg3lsnp5qgisnb3s77r55fd4c4nk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ir.ayantech.discountinquiry"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120472552359:android:41deeedae4eecfc8",
+        "android_client_info": {
+          "package_name": "ir.ayantech.fixedlinebillinquiry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJdUuN-GVMmgb9ctEbPEyAx4Cqg4nnM_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120472552359-998spg3lsnp5qgisnb3s77r55fd4c4nk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ir.ayantech.discountinquiry"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120472552359:android:33d19aec4aba70a7",
+        "android_client_info": {
+          "package_name": "ir.ayantech.gasbillinquiry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJdUuN-GVMmgb9ctEbPEyAx4Cqg4nnM_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120472552359-998spg3lsnp5qgisnb3s77r55fd4c4nk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ir.ayantech.discountinquiry"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120472552359:android:6d8bb7976ba92036",
+        "android_client_info": {
+          "package_name": "ir.ayantech.justicesharesinquiry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJdUuN-GVMmgb9ctEbPEyAx4Cqg4nnM_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120472552359-998spg3lsnp5qgisnb3s77r55fd4c4nk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ir.ayantech.discountinquiry"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120472552359:android:37bfe1da1f308ced",
+        "android_client_info": {
+          "package_name": "ir.ayantech.taminhistoryinquiry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJdUuN-GVMmgb9ctEbPEyAx4Cqg4nnM_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120472552359-998spg3lsnp5qgisnb3s77r55fd4c4nk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ir.ayantech.discountinquiry"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120472552359:android:58c8edd91d259239",
+        "android_client_info": {
+          "package_name": "ir.ayantech.vashookfieldselection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJdUuN-GVMmgb9ctEbPEyAx4Cqg4nnM_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120472552359-998spg3lsnp5qgisnb3s77r55fd4c4nk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ir.ayantech.discountinquiry"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120472552359:android:383240c9da412676",
+        "android_client_info": {
+          "package_name": "ir.ayantech.whiteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJdUuN-GVMmgb9ctEbPEyAx4Cqg4nnM_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120472552359-ss0uurgm6r3tmina2kqqm4agq88iaib3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120472552359-998spg3lsnp5qgisnb3s77r55fd4c4nk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ir.ayantech.discountinquiry"
+              }
+            }
+          ]
         }
       }
     }

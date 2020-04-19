@@ -62,7 +62,11 @@ object PushNotificationNetworking {
                     context.resources.getString(R.string.applicationName),
                     context.resources.getString(R.string.applicationType),
                     getApplicationVersion(context),
-                    extraInfo,
+                    extraInfo ?: try {
+                        PushNotificationUser.getPushNotificationExtraInfo()
+                    } catch (e: Exception) {
+                        null
+                    },
                     getOperatorName(context),
                     "android",
                     token

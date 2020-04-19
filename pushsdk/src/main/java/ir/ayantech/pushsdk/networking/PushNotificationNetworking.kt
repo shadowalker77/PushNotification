@@ -63,7 +63,7 @@ object PushNotificationNetworking {
                     context.resources.getString(R.string.applicationType),
                     getApplicationVersion(context),
                     extraInfo ?: try {
-                        PushNotificationUser.getPushNotificationExtraInfo()
+                        PushNotificationUser.getPushNotificationExtraInfo<Any>()
                     } catch (e: Exception) {
                         null
                     },

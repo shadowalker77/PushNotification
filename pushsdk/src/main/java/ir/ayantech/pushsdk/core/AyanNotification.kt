@@ -118,7 +118,7 @@ object AyanNotification {
                     success,
                     it.TotalCount,
                     it.UnSeenCount,
-                    it.Notifications.map {
+                    it.Notifications?.map {
                         NotificationObject(
                             it.NotificationID,
                             MessageDeserializer.stringToMessage(

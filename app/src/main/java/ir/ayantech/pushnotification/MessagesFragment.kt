@@ -38,7 +38,7 @@ class MessagesFragment : FragmentationFragment() {
     private fun getMessagesList() {
         AyanNotification.getNotificationList(10) { success, totalCount, unSeenCount, notifications, getNextPageClosure ->
             if (success) {
-                messagesList.addAll(notifications)
+                notifications?.let { messagesList.addAll(it) }
                 if (messagesList.isEmpty()) {
                     noMessageTv.visibility = View.VISIBLE
                 } else {

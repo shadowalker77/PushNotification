@@ -9,7 +9,7 @@ data class GetNotificationsListInput(
 data class GetNotificationsListOutput(
     val HasMore: Boolean,
     val NextOffset: Long,
-    val Notifications: List<GetNotificationDetailOutput>,
+    val Notifications: List<GetNotificationDetailOutput>?,
     val TotalCount: Long,
     val UnSeenCount: Long
 )

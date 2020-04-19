@@ -21,7 +21,7 @@ typealias NotificationObjectsCallBack = (
     success: Boolean,
     totalCount: Long,
     unSeenCount: Long,
-    notifications: List<NotificationObject<*>>,
+    notifications: List<NotificationObject<*>>?,
     getNextPageClosure: SimpleCallBack?
 ) -> Unit
 
@@ -76,7 +76,10 @@ object PushNotificationNetworking {
         ayanApi.ayanCall<Void>(
             AyanCallStatus {
                 success {
-                    PreferencesManager.saveToSharedPreferences(Constants.SERVER_NOTIFIED_MOBILE, true)
+                    PreferencesManager.saveToSharedPreferences(
+                        Constants.SERVER_NOTIFIED_MOBILE,
+                        true
+                    )
                     Log.d(
                         "AyanPush",
                         "User mobile number successfully reported to the server."
@@ -118,7 +121,9 @@ object PushNotificationNetworking {
         ayanApi.ayanCall<GetNotificationsListOutput>(
             AyanCallStatus {
                 success {
-                    it.response?.Parameters?.let { callback(true, it) }
+                    it.response?.Parameters?.let {
+                        callback(true, it)
+                    }
                 }
                 failure {
                     callback(false, null)

@@ -14,6 +14,7 @@ import ir.ayantech.pushsdk.model.action.CustomAction;
 import ir.ayantech.pushsdk.model.action.CustomizableDialogAction;
 import ir.ayantech.pushsdk.model.action.DownloadFileAction;
 import ir.ayantech.pushsdk.model.action.NoAction;
+import ir.ayantech.pushsdk.model.action.OpenApplicationAction;
 import ir.ayantech.pushsdk.model.action.OpenUrlAction;
 import ir.ayantech.pushsdk.model.action.PushNotificationAction;
 import ir.ayantech.pushsdk.model.action.ShareAction;
@@ -49,6 +50,9 @@ public class MessageDeserializer implements JsonDeserializer<Message> {
                 break;
             case "TargetedClass":
                 classOfAction = TargetedClassAction.class;
+                break;
+            case "OpenApplication":
+                classOfAction = OpenApplicationAction.class;
                 break;
             case "Custom":
                 classOfAction = CustomAction.class;

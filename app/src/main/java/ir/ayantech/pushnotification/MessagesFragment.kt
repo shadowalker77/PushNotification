@@ -36,7 +36,7 @@ class MessagesFragment : FragmentationFragment() {
     }
 
     private fun getMessagesList() {
-        AyanNotification.getNotificationList(10) { success, totalCount, unSeenCount, notifications, getNextPageClosure ->
+        AyanNotification.getNotificationList(10) { success, notifications, getNextPageClosure ->
             if (success) {
                 notifications?.let { messagesList.addAll(it) }
                 if (messagesList.isEmpty()) {

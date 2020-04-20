@@ -7,10 +7,7 @@ import ir.ayantech.pushsdk.helper.NotificationUtils
 import ir.ayantech.pushsdk.model.Message
 import ir.ayantech.pushsdk.model.MessageDeserializer
 import ir.ayantech.pushsdk.model.api.NotificationObject
-import ir.ayantech.pushsdk.networking.BooleanCallBack
-import ir.ayantech.pushsdk.networking.NotificationObjectsCallBack
-import ir.ayantech.pushsdk.networking.PushNotificationNetworking
-import ir.ayantech.pushsdk.networking.SimpleCallBack
+import ir.ayantech.pushsdk.networking.*
 import ir.ayantech.pushsdk.storage.Constants
 import ir.ayantech.pushsdk.storage.PreferencesManager
 import ir.ayantech.pushsdk.storage.PushNotificationUser
@@ -97,6 +94,10 @@ object AyanNotification {
         PushNotificationNetworking.removeAllNotifications(success)
     }
 
+    fun getNotificationsSummery(callBack: NotificationsSummaryCallBack) {
+        PushNotificationNetworking.getNotificationsSummery(callBack)
+    }
+
     private fun getNotificationList(
         itemCount: Long,
         offset: Long,
@@ -106,7 +107,7 @@ object AyanNotification {
             var nextPageClosure: SimpleCallBack? = null
             output?.let {
                 if (!success) {
-                    notificationObjectsCallBack(success, 0L, 0L, listOf(), null)
+                    notificationObjectsCallBack(success, listOf(), null)
                     return@let
                 }
                 if (it.HasMore) {
@@ -116,8 +117,6 @@ object AyanNotification {
                 }
                 notificationObjectsCallBack(
                     success,
-                    it.TotalCount,
-                    it.UnSeenCount,
                     it.Notifications?.map {
                         NotificationObject(
                             it.NotificationID,

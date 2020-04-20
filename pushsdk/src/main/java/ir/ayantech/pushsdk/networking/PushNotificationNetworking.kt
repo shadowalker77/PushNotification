@@ -19,10 +19,14 @@ typealias BooleanCallBack = (Boolean) -> Unit
 
 typealias NotificationObjectsCallBack = (
     success: Boolean,
-    totalCount: Long,
-    unSeenCount: Long,
     notifications: List<NotificationObject<*>>?,
     getNextPageClosure: SimpleCallBack?
+) -> Unit
+
+typealias NotificationsSummaryCallBack = (
+    success: Boolean,
+    totalCount: Long,
+    unSeenCount: Long
 ) -> Unit
 
 object PushNotificationNetworking {
@@ -190,6 +194,25 @@ object PushNotificationNetworking {
             },
             EndPoint.RemoveAllNotifications,
             RemoveAllNotificationsInput(PushNotificationUser.getPushNotificationToken())
+        )
+    }
+
+    fun getNotificationsSummery(callBack: NotificationsSummaryCallBack) {
+        ayanApi.ayanCall<GetNotificationsSummeryOutput>(
+            AyanCallStatus {
+                success {
+                    callBack(
+                        true,
+                        it.response?.Parameters?.TotalCount ?: 0L,
+                        it.response?.Parameters?.UnSeenCount ?: 0L
+                    )
+                }
+                failure {
+                    callBack(false, 0L, 0L)
+                }
+            },
+            EndPoint.GetNotificationsSummery,
+            GetNotificationsSummeryInput(PushNotificationUser.getPushNotificationToken())
         )
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import ir.ayantech.ayannetworking.api.AyanApi
 import ir.ayantech.ayannetworking.api.AyanCallStatus
+import ir.ayantech.ayannetworking.ayanModel.LogLevel
 import ir.ayantech.pushsdk.R
 import ir.ayantech.pushsdk.helper.getApplicationVersion
 import ir.ayantech.pushsdk.helper.getOperatorName
@@ -36,7 +37,8 @@ object PushNotificationNetworking {
         ayanApi = AyanApi(
             context,
             { "" },
-            "https://pushnotification.infra.ayantech.ir/WebServices/App.svc/"
+            "https://pushnotification.infra.ayantech.ir/WebServices/App.svc/",
+            logLevel = LogLevel.DO_NOT_LOG
         )
     }
 

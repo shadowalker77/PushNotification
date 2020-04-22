@@ -100,7 +100,8 @@ object PushNotificationNetworking {
             ReportDeviceMobileNumberInput(
                 mobileNumber,
                 PushNotificationUser.getPushNotificationToken()
-            )
+            ),
+            hasIdentity = false
         )
     }
 
@@ -119,7 +120,8 @@ object PushNotificationNetworking {
                 }
             },
             EndPoint.ReportDeviceReceivedNotificationStatus,
-            ReportDeviceReceivedNotificationStatusInput(extraInfo, messageId, status)
+            ReportDeviceReceivedNotificationStatusInput(extraInfo, messageId, status),
+            hasIdentity = false
         )
     }
 
@@ -144,7 +146,8 @@ object PushNotificationNetworking {
                 itemCount,
                 offset,
                 PushNotificationUser.getPushNotificationToken()
-            )
+            ),
+            hasIdentity = false
         )
     }
 
@@ -165,7 +168,8 @@ object PushNotificationNetworking {
             GetNotificationDetailInput(
                 notificationId,
                 PushNotificationUser.getPushNotificationToken()
-            )
+            ),
+            hasIdentity = false
         )
     }
 
@@ -180,7 +184,8 @@ object PushNotificationNetworking {
                 }
             },
             EndPoint.RemoveNotification,
-            RemoveNotificationInput(notificationId, PushNotificationUser.getPushNotificationToken())
+            RemoveNotificationInput(notificationId, PushNotificationUser.getPushNotificationToken()),
+            hasIdentity = false
         )
     }
 
@@ -195,7 +200,8 @@ object PushNotificationNetworking {
                 }
             },
             EndPoint.RemoveAllNotifications,
-            RemoveAllNotificationsInput(PushNotificationUser.getPushNotificationToken())
+            RemoveAllNotificationsInput(PushNotificationUser.getPushNotificationToken()),
+            hasIdentity = false
         )
     }
 
@@ -214,7 +220,8 @@ object PushNotificationNetworking {
                 }
             },
             EndPoint.GetNotificationsSummery,
-            GetNotificationsSummeryInput(PushNotificationUser.getPushNotificationToken())
+            GetNotificationsSummeryInput(PushNotificationUser.getPushNotificationToken()),
+            hasIdentity = false
         )
     }
 }

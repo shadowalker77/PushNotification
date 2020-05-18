@@ -2,6 +2,8 @@ package ir.ayantech.pushnotification
 
 import android.os.Bundle
 import android.util.Log
+import ir.ayantech.pushsdk.core.AyanNotification
+import ir.ayantech.pushsdk.model.api.PushNotification
 import ir.ayantech.pushsdk.storage.PushNotificationUser
 import kotlinx.android.synthetic.main.activity_main.*
 import me.yokeyword.fragmentation.SupportActivity

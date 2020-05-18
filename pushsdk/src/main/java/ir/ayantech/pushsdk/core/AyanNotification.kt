@@ -127,7 +127,7 @@ object AyanNotification {
                             it.Seen,
                             it.SendDateTime
                         )
-                    },
+                    }?.filter { it.message != null },
                     nextPageClosure
                 )
             }

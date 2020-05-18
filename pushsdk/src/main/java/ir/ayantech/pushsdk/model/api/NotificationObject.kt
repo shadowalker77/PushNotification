@@ -11,7 +11,7 @@ import ir.ayantech.pushsdk.networking.PushNotificationNetworking
 
 class NotificationObject<T : PushNotificationAction>(
     private val notificationId: Long?,
-    private val message: Message<T>?,
+    internal val message: Message<T>?,
     val seen: Boolean,
     val sendDateTime: String,
     val title: String? = message?.notificationToShow?.title

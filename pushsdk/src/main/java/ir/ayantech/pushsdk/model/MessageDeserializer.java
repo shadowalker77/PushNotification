@@ -66,7 +66,11 @@ public class MessageDeserializer implements JsonDeserializer<Message> {
     }
 
     public static Message stringToMessage(String body, String messageId) {
-        Gson gson = new GsonBuilder().registerTypeAdapter(Message.class, new MessageDeserializer(messageId)).create();
-        return gson.fromJson(body, Message.class);
+        try {
+            Gson gson = new GsonBuilder().registerTypeAdapter(Message.class, new MessageDeserializer(messageId)).create();
+            return gson.fromJson(body, Message.class);
+        } catch (Exception e){
+            return null;
+        }
     }
 }

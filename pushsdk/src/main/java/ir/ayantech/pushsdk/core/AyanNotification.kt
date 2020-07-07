@@ -105,11 +105,11 @@ object AyanNotification {
     ) {
         PushNotificationNetworking.getNotificationsList(itemCount, offset) { success, output ->
             var nextPageClosure: SimpleCallBack? = null
+            if (!success) {
+                notificationObjectsCallBack(success, listOf(), null)
+                return@getNotificationsList
+            }
             output?.let {
-                if (!success) {
-                    notificationObjectsCallBack(success, listOf(), null)
-                    return@let
-                }
                 if (it.HasMore) {
                     nextPageClosure = {
                         getNotificationList(itemCount, it.NextOffset, notificationObjectsCallBack)

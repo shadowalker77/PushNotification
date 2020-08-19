@@ -106,10 +106,11 @@ object PushNotificationNetworking {
     }
 
     fun reportDeviceReceivedNotificationStatus(
-        messageId: String,
+        messageId: String?,
         status: String,
         extraInfo: Any? = null
     ) {
+        if (messageId == null) return
         ayanApi.ayanCall<Void>(
             AyanCallStatus {
                 success {

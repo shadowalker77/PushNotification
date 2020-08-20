@@ -1,5 +1,7 @@
 package ir.ayantech.pushsdk.model;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 import ir.ayantech.pushsdk.model.action.PushNotificationAction;
@@ -8,9 +10,10 @@ public class Message<T extends PushNotificationAction> implements Serializable {
     private T action;
     private String actionType;
     private NotificationToShow notificationToShow;
+    @Nullable
     private String messageId;
 
-    public Message(T action, String actionType, NotificationToShow notificationToShow, String messageId) {
+    public Message(T action, String actionType, NotificationToShow notificationToShow, @Nullable String messageId) {
         this.action = action;
         this.actionType = actionType;
         this.notificationToShow = notificationToShow;
@@ -33,11 +36,12 @@ public class Message<T extends PushNotificationAction> implements Serializable {
         this.action = action;
     }
 
+    @Nullable
     public String getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(String messageId) {
+    public void setMessageId(@Nullable String messageId) {
         this.messageId = messageId;
     }
 

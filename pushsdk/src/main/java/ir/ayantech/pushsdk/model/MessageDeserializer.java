@@ -1,6 +1,8 @@
 package ir.ayantech.pushsdk.model;
 
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -22,9 +24,10 @@ import ir.ayantech.pushsdk.model.action.TargetedClassAction;
 
 public class MessageDeserializer implements JsonDeserializer<Message> {
 
+    @Nullable
     private String messageId;
 
-    public MessageDeserializer(String messageId) {
+    public MessageDeserializer(@Nullable String messageId) {
         this.messageId = messageId;
     }
 

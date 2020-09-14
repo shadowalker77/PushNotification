@@ -33,7 +33,7 @@ class MainActivity : SupportActivity() {
                 AyanNotification.performMessageLogic(this, message)
                 Log.d("Msg", message.toString())
             } catch (e: Exception) {
-                Log.e("Msg", e.message)
+                Log.e("Msg", e.message ?: "")
             }
         }
 

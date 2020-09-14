@@ -33,7 +33,16 @@ typealias NotificationsSummaryCallBack = (
 object PushNotificationNetworking {
     private lateinit var ayanApi: AyanApi
 
+    private var applicationName: String? = null
+    private var applicationType: String? = null
+    private var applicationVersion: String? = null
+    private var operatorName: String? = null
+
     fun initialize(context: Context) {
+        this.applicationName = context.resources.getString(R.string.applicationName)
+        this.applicationType = context.resources.getString(R.string.applicationType)
+        this.applicationVersion = getApplicationVersion(context)
+        this.operatorName = getOperatorName(context)
         ayanApi = AyanApi(
             context,
             { "" },
@@ -43,43 +52,41 @@ object PushNotificationNetworking {
     }
 
     fun reportNewDevice(token: String, extraInfo: Any? = null) {
-        ayanApi.context?.let { context ->
-            ayanApi.ayanCall<Void>(
-                AyanCallStatus {
-                    success {
-                        PreferencesManager.saveToSharedPreferences(
-                            Constants.SERVER_NOTIFIED_TOKEN,
-                            true
-                        )
-                        Log.d(
-                            "AyanPush",
-                            "FCM token successfully reported to the server."
-                        )
-                    }
-                    failure {
-                        Log.e(
-                            "AyanPush",
-                            "FCM token not reported to the server. Did you correctly set \"properties.xml\" file?"
-                        )
-                    }
+        ayanApi.ayanCall<Void>(
+            AyanCallStatus {
+                success {
+                    PreferencesManager.saveToSharedPreferences(
+                        Constants.SERVER_NOTIFIED_TOKEN,
+                        true
+                    )
+                    Log.d(
+                        "AyanPush",
+                        "FCM token successfully reported to the server."
+                    )
+                }
+                failure {
+                    Log.e(
+                        "AyanPush",
+                        "FCM token not reported to the server. Did you correctly set \"properties.xml\" file?"
+                    )
+                }
+            },
+            EndPoint.ReportNewDevice,
+            ReportNewDeviceInput(
+                applicationName,
+                applicationType,
+                applicationVersion,
+                extraInfo ?: try {
+                    PushNotificationUser.getPushNotificationExtraInfo<Any>()
+                } catch (e: Exception) {
+                    null
                 },
-                EndPoint.ReportNewDevice,
-                ReportNewDeviceInput(
-                    context.resources.getString(R.string.applicationName),
-                    context.resources.getString(R.string.applicationType),
-                    getApplicationVersion(context),
-                    extraInfo ?: try {
-                        PushNotificationUser.getPushNotificationExtraInfo<Any>()
-                    } catch (e: Exception) {
-                        null
-                    },
-                    getOperatorName(context),
-                    "android",
-                    token
-                ),
-                identity = false
-            )
-        }
+                operatorName,
+                "android",
+                token
+            ),
+            identity = false
+        )
     }
 
     fun reportDeviceMobileNumber(mobileNumber: String) {
@@ -185,7 +192,10 @@ object PushNotificationNetworking {
                 }
             },
             EndPoint.RemoveNotification,
-            RemoveNotificationInput(notificationId, PushNotificationUser.getPushNotificationToken()),
+            RemoveNotificationInput(
+                notificationId,
+                PushNotificationUser.getPushNotificationToken()
+            ),
             hasIdentity = false
         )
     }

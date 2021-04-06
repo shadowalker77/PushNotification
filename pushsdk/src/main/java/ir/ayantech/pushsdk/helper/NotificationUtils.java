@@ -32,10 +32,10 @@ import ir.ayantech.pushsdk.model.Message;
 public class NotificationUtils {
 
     public static void showNotificationMessageWithBigImage(Context context, String title, String message, Intent intent, String imageUrl,
-                                                            List<CustomizableDialogActivity.Button> buttonList,
-                                                            final String bigIconUrl, boolean isCustom) {
+                                                           List<CustomizableDialogActivity.Button> buttonList,
+                                                           final String bigIconUrl, boolean isCustom) {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        NotificationUtils.showNotificationMessage(context, title, message,intent, imageUrl, buttonList, bigIconUrl, isCustom);
+        NotificationUtils.showNotificationMessage(context, title, message, intent, imageUrl, buttonList, bigIconUrl, isCustom);
     }
 
     public static void showNotificationMessage(final Context context,
@@ -76,8 +76,10 @@ public class NotificationUtils {
                         public void onBitmapDownloaded(Bitmap bitmap) {
                             if (isCustom)
                                 showCustomNotification(context, bitmap, mBuilder, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
-                            else
+                            else if (bitmap != null)
                                 showBigNotification(context, bitmap, mBuilder, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
+                            else
+                                showSmallNotification(mBuilder, context, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
                         }
                     });
                 } else {

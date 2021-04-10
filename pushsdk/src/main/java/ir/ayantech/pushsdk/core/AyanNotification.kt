@@ -80,6 +80,7 @@ object AyanNotification {
     }
 
     fun reportDeviceMobileNumber(mobileNumber: String) {
+        PushNotificationUser.setUserMobile(mobileNumber)
         PushNotificationNetworking.reportDeviceMobileNumber(mobileNumber)
     }
 

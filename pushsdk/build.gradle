@@ -34,7 +34,7 @@ afterEvaluate {
             maven(MavenPublication) {
                 groupId = 'com.github.shadowalker77'
                 artifactId = 'pushnotification'
-                version = '0.4.19'
+                version = '0.4.20'
 
                 from components.release
             }
@@ -50,7 +50,7 @@ dependencies {
     compileOnly 'com.google.code.gson:gson:2.8.6'
     compileOnly 'com.squareup.retrofit2:converter-gson:2.6.0'
     compileOnly 'com.squareup.okhttp3:okhttp:3.12.1'
-    compileOnly 'com.github.shadowalker77:networking:0.11.0'
+    compileOnly 'com.github.shadowalker77:networking:0.13.0'
     compileOnly 'com.google.firebase:firebase-messaging:21.0.1'
     compileOnly 'com.google.firebase:firebase-core:18.0.2'
 }

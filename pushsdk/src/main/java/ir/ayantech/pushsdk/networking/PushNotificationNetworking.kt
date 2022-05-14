@@ -31,7 +31,7 @@ typealias NotificationsSummaryCallBack = (
 ) -> Unit
 
 object PushNotificationNetworking {
-    private lateinit var ayanApi: AyanApi
+    lateinit var ayanApi: AyanApi
 
     private var applicationName: String? = null
     private var applicationType: String? = null

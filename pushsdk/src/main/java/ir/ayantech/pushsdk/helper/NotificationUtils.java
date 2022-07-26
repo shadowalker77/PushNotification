@@ -52,12 +52,17 @@ public class NotificationUtils {
         final int icon = R.drawable.pushIcon;
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        int flags;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            flags = PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE;
+        else
+            flags = PendingIntent.FLAG_CANCEL_CURRENT;
         final PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         context,
                         0,
                         intent,
-                        PendingIntent.FLAG_CANCEL_CURRENT
+                        flags
                 );
 
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(

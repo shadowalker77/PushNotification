@@ -33,7 +33,7 @@ afterEvaluate {
             maven(MavenPublication) {
                 groupId = 'com.github.shadowalker77'
                 artifactId = 'pushnotification'
-                version = '1.1.4'
+                version = '1.1.5'
 
                 from components.release
             }

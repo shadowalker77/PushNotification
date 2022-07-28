@@ -72,27 +72,21 @@ public class NotificationUtils {
                 + "://" + context.getPackageName() + "/raw/notification");
 //        if (!TextUtils.isEmpty(bigIconUrl)) {
 //            if (bigIconUrl.length() > 4 && Patterns.WEB_URL.matcher(bigIconUrl).matches()) {
-        ImageHelper.downloadImage(bigIconUrl, new ImageHelper.OnBitmapDownloaded() {
-            @Override
-            public void onBitmapDownloaded(final Bitmap bigIcon) {
-                if (imageUrl != null) {
-                    ImageHelper.downloadImage(imageUrl, new ImageHelper.OnBitmapDownloaded() {
-                        @Override
-                        public void onBitmapDownloaded(Bitmap bitmap) {
-                            if (isCustom)
-                                showCustomNotification(context, bitmap, mBuilder, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
-                            else if (bitmap != null)
-                                showBigNotification(context, bitmap, mBuilder, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
-                            else
-                                showSmallNotification(mBuilder, context, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
-                        }
-                    });
-                } else {
+        ImageHelper.downloadImage(bigIconUrl, bigIcon -> {
+            if (imageUrl != null) {
+                ImageHelper.downloadImage(imageUrl, bitmap -> {
                     if (isCustom)
-                        showCustomNotification(context, null, mBuilder, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
+                        showCustomNotification(context, bitmap, mBuilder, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
+                    else if (bitmap != null)
+                        showBigNotification(context, bitmap, mBuilder, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
                     else
                         showSmallNotification(mBuilder, context, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
-                }
+                });
+            } else {
+                if (isCustom)
+                    showCustomNotification(context, null, mBuilder, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
+                else
+                    showSmallNotification(mBuilder, context, icon, title, message, resultPendingIntent, alarmSound, buttonList, bigIcon);
             }
         });
 //            }
@@ -265,11 +259,16 @@ public class NotificationUtils {
     }
 
     private static PendingIntent getPendingIntentByMessage(Context context, Message message) {
+        int flags;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            flags = PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE;
+        else
+            flags = PendingIntent.FLAG_CANCEL_CURRENT;
         return PendingIntent.getActivity(
                 context,
                 new Random().nextInt(1000),
                 IncomeMessageActivity.getIntentByMessage(context, message),
-                PendingIntent.FLAG_CANCEL_CURRENT
+                flags
         );
     }
 

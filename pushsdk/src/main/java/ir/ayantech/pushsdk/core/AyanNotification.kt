@@ -1,5 +1,6 @@
 package ir.ayantech.pushsdk.core
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import ir.ayantech.pushsdk.activity.IncomeMessageActivity
@@ -10,29 +11,31 @@ import ir.ayantech.pushsdk.model.api.NotificationObject
 import ir.ayantech.pushsdk.networking.*
 import ir.ayantech.pushsdk.storage.Constants
 import ir.ayantech.pushsdk.storage.PreferencesManager
-import ir.ayantech.pushsdk.storage.PushNotificationUser
+import ir.ayantech.pushsdk.storage.PushUser
 
+@SuppressLint("StaticFieldLeak")
 object AyanNotification {
-
+    var context: Context? = null
     fun initialize(context: Context) {
-        PreferencesManager.initialize(context)
+        this.context = context
+        PushUser.context = context
         PushNotificationNetworking.initialize(context)
         if (isServerNotifiedToken() && isServerNotifiedMobile()) return
-        if (PushNotificationUser.getPushNotificationToken().isEmpty()) return
-        if (!isServerNotifiedToken() && PushNotificationUser.getPushNotificationToken()
-                .isNotEmpty()
-        )
-            PushNotificationNetworking.reportNewDevice(PushNotificationUser.getPushNotificationToken())
-        if (!isServerNotifiedMobile() && PushNotificationUser.getUserMobile().isNotEmpty())
-            PushNotificationNetworking.reportDeviceMobileNumber(PushNotificationUser.getUserMobile())
+        if (PushUser.pushNotificationToken.isEmpty()) return
+        if (!isServerNotifiedToken() && PushUser.pushNotificationToken.isNotEmpty())
+            PushNotificationNetworking.reportNewDevice(PushUser.pushNotificationToken)
+        if (!isServerNotifiedMobile() && PushUser.userMobile.isNotEmpty())
+            PushNotificationNetworking.reportDeviceMobileNumber(PushUser.userMobile)
     }
 
     fun isServerNotifiedToken(): Boolean {
-        return PreferencesManager.readBooleanFromSharedPreferences(Constants.SERVER_NOTIFIED_TOKEN)
+        return PreferencesManager.getInstance(context!!)
+            .readBooleanFromSharedPreferences(Constants.SERVER_NOTIFIED_TOKEN)
     }
 
     fun isServerNotifiedMobile(): Boolean {
-        return PreferencesManager.readBooleanFromSharedPreferences(Constants.SERVER_NOTIFIED_MOBILE)
+        return PreferencesManager.getInstance(context!!)
+            .readBooleanFromSharedPreferences(Constants.SERVER_NOTIFIED_MOBILE)
     }
 
     fun performMessageLogic(context: Context, message: Message<*>) {
@@ -71,16 +74,16 @@ object AyanNotification {
     }
 
     fun <T> reportExtraInfo(extraInfo: T) {
-        PushNotificationUser.setPushNotificationExtraInfo(extraInfo)
+        PushUser.setPushNotificationExtraInfo(extraInfo)
         if (isServerNotifiedToken())
             PushNotificationNetworking.reportNewDevice(
-                PushNotificationUser.getPushNotificationToken(),
+                PushUser.pushNotificationToken,
                 extraInfo
             )
     }
 
     fun reportDeviceMobileNumber(mobileNumber: String) {
-        PushNotificationUser.setUserMobile(mobileNumber)
+        PushUser.userMobile = mobileNumber
         PushNotificationNetworking.reportDeviceMobileNumber(mobileNumber)
     }
 

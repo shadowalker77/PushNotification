@@ -6,13 +6,14 @@ import ir.ayantech.ayannetworking.api.AyanApi
 import ir.ayantech.ayannetworking.api.AyanCallStatus
 import ir.ayantech.ayannetworking.ayanModel.LogLevel
 import ir.ayantech.pushsdk.R
+import ir.ayantech.pushsdk.core.AyanNotification
 import ir.ayantech.pushsdk.helper.getApplicationVersion
 import ir.ayantech.pushsdk.helper.getOperatorName
 import ir.ayantech.pushsdk.model.api.*
 import ir.ayantech.pushsdk.storage.Constants
 import ir.ayantech.pushsdk.storage.EndPoint
 import ir.ayantech.pushsdk.storage.PreferencesManager
-import ir.ayantech.pushsdk.storage.PushNotificationUser
+import ir.ayantech.pushsdk.storage.PushUser
 
 typealias SimpleCallBack = () -> Unit
 
@@ -55,7 +56,7 @@ object PushNotificationNetworking {
         ayanApi.ayanCall<Void>(
             AyanCallStatus {
                 success {
-                    PreferencesManager.saveToSharedPreferences(
+                    PreferencesManager.getInstance(AyanNotification.context!!).save(
                         Constants.SERVER_NOTIFIED_TOKEN,
                         true
                     )
@@ -77,7 +78,7 @@ object PushNotificationNetworking {
                 applicationType,
                 applicationVersion,
                 extraInfo ?: try {
-                    PushNotificationUser.getPushNotificationExtraInfo<Any>()
+                    PushUser.getPushNotificationExtraInfo<Any>()
                 } catch (e: Exception) {
                     null
                 },
@@ -93,7 +94,7 @@ object PushNotificationNetworking {
         ayanApi.ayanCall<Void>(
             AyanCallStatus {
                 success {
-                    PreferencesManager.saveToSharedPreferences(
+                    PreferencesManager.getInstance(AyanNotification.context!!).save(
                         Constants.SERVER_NOTIFIED_MOBILE,
                         true
                     )
@@ -106,7 +107,7 @@ object PushNotificationNetworking {
             EndPoint.ReportDeviceMobileNumber,
             ReportDeviceMobileNumberInput(
                 mobileNumber,
-                PushNotificationUser.getPushNotificationToken()
+                PushUser.pushNotificationToken
             ),
             hasIdentity = false
         )
@@ -153,7 +154,7 @@ object PushNotificationNetworking {
             GetNotificationsListInput(
                 itemCount,
                 offset,
-                PushNotificationUser.getPushNotificationToken()
+                PushUser.pushNotificationToken
             ),
             hasIdentity = false
         )
@@ -175,7 +176,7 @@ object PushNotificationNetworking {
             EndPoint.GetNotificationDetail,
             GetNotificationDetailInput(
                 notificationId,
-                PushNotificationUser.getPushNotificationToken()
+                PushUser.pushNotificationToken
             ),
             hasIdentity = false
         )
@@ -194,7 +195,7 @@ object PushNotificationNetworking {
             EndPoint.RemoveNotification,
             RemoveNotificationInput(
                 notificationId,
-                PushNotificationUser.getPushNotificationToken()
+                PushUser.pushNotificationToken
             ),
             hasIdentity = false
         )
@@ -211,7 +212,7 @@ object PushNotificationNetworking {
                 }
             },
             EndPoint.RemoveAllNotifications,
-            RemoveAllNotificationsInput(PushNotificationUser.getPushNotificationToken()),
+            RemoveAllNotificationsInput(PushUser.pushNotificationToken),
             hasIdentity = false
         )
     }
@@ -231,7 +232,7 @@ object PushNotificationNetworking {
                 }
             },
             EndPoint.GetNotificationsSummery,
-            GetNotificationsSummeryInput(PushNotificationUser.getPushNotificationToken()),
+            GetNotificationsSummeryInput(PushUser.pushNotificationToken),
             hasIdentity = false
         )
     }

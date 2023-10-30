@@ -33,7 +33,7 @@ afterEvaluate {
             maven(MavenPublication) {
                 groupId = 'com.github.shadowalker77'
                 artifactId = 'pushnotification'
-                version = '1.1.8'
+                version = '1.1.10'
 
                 from components.release
             }
@@ -46,7 +46,7 @@ dependencies {
     compileOnly 'androidx.appcompat:appcompat:1.4.2'
     compileOnly 'androidx.core:core-ktx:1.8.0'
     compileOnly 'com.coolerfall:android-http-download-manager:1.6.1'
-    compileOnly 'com.github.shadowalker77:networking:1.4.1'
+    compileOnly 'com.github.shadowalker77:networking:1.5.0'
     compileOnly 'com.google.firebase:firebase-messaging:21.0.1'
     compileOnly 'com.google.firebase:firebase-core:18.0.2'
 }

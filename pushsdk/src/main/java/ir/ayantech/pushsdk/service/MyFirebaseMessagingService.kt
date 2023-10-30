@@ -3,12 +3,13 @@ package ir.ayantech.pushsdk.service
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import ir.ayantech.pushsdk.core.AyanNotification
 import ir.ayantech.pushsdk.core.AyanNotification.performMessageLogic
 import ir.ayantech.pushsdk.model.MessageDeserializer
 import ir.ayantech.pushsdk.networking.PushNotificationNetworking
 import ir.ayantech.pushsdk.storage.Constants
 import ir.ayantech.pushsdk.storage.PreferencesManager
-import ir.ayantech.pushsdk.storage.PushNotificationUser
+import ir.ayantech.pushsdk.storage.PushUser
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -41,12 +42,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(s: String) {
         super.onNewToken(s)
         Log.d("newToken", s)
-        PreferencesManager.saveToSharedPreferences(
+        PreferencesManager.getInstance(AyanNotification.context!!).save(
             Constants.SERVER_NOTIFIED_TOKEN,
             false
         )
         if (s.isNotEmpty()) {
-            PushNotificationUser.setPushNotificationToken(s)
+            PushUser.pushNotificationToken = s
             PushNotificationNetworking.reportNewDevice(s)
         }
     }

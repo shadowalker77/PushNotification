@@ -6,8 +6,7 @@ import android.widget.Toast
 import ir.ayantech.pushsdk.core.AyanNotification
 import ir.ayantech.pushsdk.helper.ShareHelper
 import ir.ayantech.pushsdk.model.MessageDeserializer
-import ir.ayantech.pushsdk.model.api.PushNotification
-import ir.ayantech.pushsdk.storage.PushNotificationUser
+import ir.ayantech.pushsdk.storage.PushUser
 import kotlinx.android.synthetic.main.activity_main.*
 import me.yokeyword.fragmentation.SupportActivity
 import java.lang.Exception
@@ -23,13 +22,16 @@ class MainActivity : SupportActivity() {
         }
 
         copyBtn.setOnClickListener {
-            ShareHelper.copyToClipBoard(this, PushNotificationUser.getPushNotificationToken())
+            ShareHelper.copyToClipBoard(this, PushUser.pushNotificationToken)
             Toast.makeText(this, "Copied", Toast.LENGTH_LONG).show()
         }
 
         testMessageBtn.setOnClickListener {
             try {
-                val message = MessageDeserializer.stringToMessage("{\"actionType\":\"Share\",\"action\":{\"model\":{\"content\":\"share text\"}},\"notificationToShow\":{\"buttons\":[{\"message\":{\"action\":{\"model\":{}},\"actionType\":\"NoAction\"},\"text\":\"close\"}],\"imageUrl\":null,\"message\":\"\",\"title\":\"salam test\"}}", "")
+                val message = MessageDeserializer.stringToMessage(
+                    "{\"actionType\":\"Share\",\"action\":{\"model\":{\"content\":\"share text\"}},\"notificationToShow\":{\"buttons\":[{\"message\":{\"action\":{\"model\":{}},\"actionType\":\"NoAction\"},\"text\":\"close\"}],\"imageUrl\":null,\"message\":\"\",\"title\":\"salam test\"}}",
+                    ""
+                )
                 AyanNotification.performMessageLogic(this, message)
                 Log.d("Msg", message.toString())
             } catch (e: Exception) {
@@ -37,6 +39,6 @@ class MainActivity : SupportActivity() {
             }
         }
 
-        Log.d("TOKEN", PushNotificationUser.getPushNotificationToken())
+        Log.d("TOKEN", PushUser.pushNotificationToken)
     }
 }

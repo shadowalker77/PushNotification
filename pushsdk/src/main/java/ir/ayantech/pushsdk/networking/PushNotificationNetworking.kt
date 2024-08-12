@@ -39,15 +39,15 @@ object PushNotificationNetworking {
     private var applicationVersion: String? = null
     private var operatorName: String? = null
 
-    fun initialize(context: Context) {
+    fun initialize(context: Context, baseUrl: String? = null) {
         this.applicationName = context.resources.getString(R.string.applicationName)
         this.applicationType = context.resources.getString(R.string.applicationType)
         this.applicationVersion = getApplicationVersion(context)
         this.operatorName = getOperatorName(context)
         ayanApi = AyanApi(
-            context,
-            { "" },
-            "https://pushnotification.infra.ayantech.ir/WebServices/App.svc/",
+            context = context,
+            getUserToken = { "" },
+            defaultBaseUrl = baseUrl ?: "https://pushnotification.infra.ayantech.ir/WebServices/App.svc/",
             logLevel = LogLevel.DO_NOT_LOG
         )
     }

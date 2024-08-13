@@ -30,14 +30,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'com.coolerfall:android-http-download-manager:1.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     implementation 'com.github.shadowalker77:networking:1.1.0'
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
     implementation 'com.google.firebase:firebase-core:18.0.2'
-
-    implementation 'me.yokeyword:fragmentationx:1.0.1'
-    implementation 'me.yokeyword:fragmentationx-swipeback:1.0.1'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 

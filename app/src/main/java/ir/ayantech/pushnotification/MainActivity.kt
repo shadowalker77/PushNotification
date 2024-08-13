@@ -3,23 +3,23 @@ package ir.ayantech.pushnotification
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import ir.ayantech.pushsdk.core.AyanNotification
 import ir.ayantech.pushsdk.helper.ShareHelper
 import ir.ayantech.pushsdk.model.MessageDeserializer
 import ir.ayantech.pushsdk.storage.PushUser
-import kotlinx.android.synthetic.main.activity_main.*
-import me.yokeyword.fragmentation.SupportActivity
-import java.lang.Exception
+import kotlinx.android.synthetic.main.activity_main.copyBtn
+import kotlinx.android.synthetic.main.activity_main.testMessageBtn
 
-class MainActivity : SupportActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        getListBtn.setOnClickListener {
-            loadRootFragment(R.id.fragmentContainer, MessagesFragment())
-        }
+//        getListBtn.setOnClickListener {
+//            loadRootFragment(R.id.fragmentContainer, MessagesFragment())
+//        }
 
         copyBtn.setOnClickListener {
             ShareHelper.copyToClipBoard(this, PushUser.pushNotificationToken)

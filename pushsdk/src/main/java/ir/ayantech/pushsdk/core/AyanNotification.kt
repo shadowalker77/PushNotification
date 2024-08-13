@@ -16,10 +16,10 @@ import ir.ayantech.pushsdk.storage.PushUser
 @SuppressLint("StaticFieldLeak")
 object AyanNotification {
     var context: Context? = null
-    fun initialize(context: Context) {
+    fun initialize(context: Context, baseUrl: String? = null) {
         this.context = context
         PushUser.context = context
-        PushNotificationNetworking.initialize(context)
+        PushNotificationNetworking.initialize(context, baseUrl)
         if (isServerNotifiedToken() && isServerNotifiedMobile()) return
         if (PushUser.pushNotificationToken.isEmpty()) return
         if (!isServerNotifiedToken() && PushUser.pushNotificationToken.isNotEmpty())
